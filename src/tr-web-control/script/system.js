@@ -125,7 +125,7 @@ var system = {
 			if (result) {
 				system.lang = $.extend(true, system.defaultLang, result);
 			}
-			
+
 			system.resetLangText();
 			// Set the easyui language
 			$.getScript(system.rootPath + "script/easyui/locale/easyui-lang-" + lang + ".js")
@@ -563,7 +563,7 @@ var system = {
 					text: this.lang.tree.status.loading,
 					iconCls: "tree-loading"
 				}]
-			}, 
+			},
 			"statistics": {
 				id: "statistics",
 				text: this.lang.tree.statistics.title,
@@ -637,7 +637,7 @@ var system = {
 				}
 			}
 		}
-		
+
 		this.panel.left.tree({
 			data: items,
 			onSelect: function (node) {
@@ -758,7 +758,7 @@ var system = {
 				} else if (item["sortable"]) {
 					delete item["sortable"];
 				}
-				
+
 				item.title = system.lang.torrent.fields[item.field] || item.field;
 				system.setFieldFormat(item);
 			}
@@ -934,9 +934,9 @@ var system = {
 
 		switch (type) {
 			case "torrent-list":
-				menus = new Array("start", "pause", "-", 
-										"rename", "remove", "recheck", "-", 
-										"morepeers", "changeDownloadDir", "copyPath", "-", 
+				menus = new Array("start", "pause", "-",
+										"rename", "remove", "recheck", "-",
+										"morepeers", "changeDownloadDir", "copyPath", "-",
 										"menu-queue-move-top", "menu-queue-move-up", "menu-queue-move-down", "menu-queue-move-bottom",
 										"magnetLink"
 										);
@@ -1077,7 +1077,7 @@ var system = {
 				}
 			}
 		}
-		
+
 		var button = $("<button onclick='javascript:system.setTorrentLabels(this,\""+hashString+"\");' data-options=\"iconCls:'iconfont tr-icon-labels',plain:true\" class=\"easyui-linkbutton user-label-set\"/>").appendTo(box);
 		button.linkbutton();
 		button.find("span").first().attr({
@@ -1128,7 +1128,7 @@ var system = {
 			this.panel.toolbar.find("#toolbar_queue").menubutton("disable");
 			return;
 		}
-		
+
 		// 如果没有被选中的数据时
 		if (this.checkedRows.length == 0) {
 			// 禁用所有菜单
@@ -1833,7 +1833,7 @@ var system = {
 			}
 			return;
 		}
-		
+
 		if (serversNode) {
 			var serversNode_collapsed = serversNode.state;
 			this.removeTreeNode("servers-loading");
@@ -2244,14 +2244,17 @@ var system = {
 			data = $.extend(data, torrents[index]);
 			data.status = status;
 			data.statusCode = torrents[index].status;
-			data.completeSize = Math.max(0, torrents[index].totalSize - torrents[index].leftUntilDone);
+			// data.completeSize = Math.max(0, torrents[index].totalSize - torrents[index].leftUntilDone);
+			data.completeSize = torrents[index].files
+				? Math.max(0, torrents[index].files?.reduce((acc, el) => acc + el.bytesCompleted, 0) || 0)
+				: Math.max(0, torrents[index].totalSize - torrents[index].leftUntilDone);
 			data.leecherCount = torrents[index].leecher;
 			data.seederCount = torrents[index].seeder;
 			var labels = this.config.labelMaps[data.hashString];
 			if (labels) {
 				data.labels = labels;
 			}
-			
+
 			//data.leecherCount = torrents[index].leecher;
 			/*
 			datas.push({
@@ -2643,7 +2646,8 @@ var system = {
 					return;
 				}
 
-				torrent.completeSize = (torrent.totalSize - torrent.leftUntilDone);
+				// torrent.completeSize = (torrent.totalSize - torrent.leftUntilDone);
+				torrent.completeSize = torrent.files?.reduce((acc, el) => acc + el.bytesCompleted, 0) || 0;
 				if (("files" in torrent) && torrent.files.length > 0) {
 					torrent.moreInfosTag = true;
 				}
@@ -2768,7 +2772,7 @@ var system = {
 					} else {
 						value = getTotalTime(value);
 					}
-					
+
 					break;
 
 					// description
@@ -2791,7 +2795,7 @@ var system = {
 			}
 		}
 		var MAXCELLS = 500;
-		
+
 		var piecePerCell = parseInt((MAXCELLS-1+pieceCount)/MAXCELLS);
 		var cellSize = formatSize(pieceSize * piecePerCell);
 		var cellCount = parseInt((piecePerCell-1+pieceCount)/piecePerCell);
@@ -3005,7 +3009,7 @@ var system = {
 			});
 		});
 	},
-	// Set the field display format		
+	// Set the field display format
 	setFieldFormat: function (field) {
 		if (field.formatter) {
 			switch (field.formatter) {
@@ -3066,7 +3070,7 @@ var system = {
 						return system.formetTorrentLabels(value, row.hashString);
 					}
 					break;
-				
+
 				case "color":
 					field.formatter = function(value, row, index) {
 						var box = $("<span class='user-label'/>").html(value).css({
@@ -3079,7 +3083,7 @@ var system = {
 			}
 		}
 	},
-	// Reload the data		
+	// Reload the data
 	reloadData: function () {
 		if (this.popoverCount>0) {
 			setTimeout(function(){
@@ -3095,7 +3099,7 @@ var system = {
 		// enable all icons
 		// this.checkTorrentRow("all", false);
 	},
-	// Loads the directory listing		
+	// Loads the directory listing
 	loadFolderList: function (oldFolders) {
 		this.removeTreeNode("folders-loading");
 		// Delete the directory that does not exist
@@ -3179,7 +3183,7 @@ var system = {
 			return '<a href="' + url + '" target="_blank">' + url + '</a>';
 		});
 	},
-	// Load the parameters from cookies		
+	// Load the parameters from cookies
 	readConfig: function () {
 		this.readUserConfig();
 		// 将原来的cookies的方式改为本地存储的方式
@@ -3192,7 +3196,7 @@ var system = {
 			this.dictionary[key] = this.getStorageData(this.storageKeys.dictionary[key]);
 		}
 	},
-	// Save the parameters in cookies		
+	// Save the parameters in cookies
 	saveConfig: function () {
 		this.setStorageData(this.configHead + '.system', JSON.stringify(this.config));
 		for (var key in this.storageKeys.dictionary) {
@@ -3220,7 +3224,7 @@ var system = {
 	saveUserConfig: function () {
 		window.localStorage[this.configHead] = JSON.stringify(this.userConfig);
 	},
-	// Upload the torrent file		
+	// Upload the torrent file
 	uploadTorrentFile: function (fileInputId, savePath, paused, callback) {
 		// Determines whether the FileReader interface is supported
 		if (window.FileReader) {
@@ -3277,7 +3281,7 @@ var system = {
 		$('#button-download-update').webuiPopover("hide");
 		$("#area-update-infos").hide();
 	},
-	// Set the language to reload the page		
+	// Set the language to reload the page
 	changeLanguages: function (lang) {
 		if (lang == this.lang.name || !lang) return;
 
@@ -3364,7 +3368,7 @@ var system = {
 			$(config.source).webuiPopover({
 				url: '#' + dialogId,
 				title: options.title,
-				width: options.width, 
+				width: options.width,
 				height: options.height -18,
 				padding: false,
 				onHide: function(e) {
@@ -3401,7 +3405,7 @@ var system = {
 			}
 		});
 	},
-	// Debugging information		
+	// Debugging information
 	debug: function (label, text) {
 		if (window.console) {
 			if (window.console.log) {
@@ -3522,7 +3526,7 @@ function pagerFilter(data) {
 	isFileData = this.id=="torrent-files-table";
 	if (isFileData) {
 		var fileFilterString = $("#torrent-files-filter-string").val();
-		filterChanged = ( (data.filterString!==fileFilterString) || 
+		filterChanged = ( (data.filterString!==fileFilterString) ||
 						  (data.filterString && data.originalRows.length==data.unfilteredRows.length)
 						);
 		if (filterChanged) {
@@ -3537,7 +3541,7 @@ function pagerFilter(data) {
 			data.filterString = fileFilterString;
 		}
 	}
-	
+
 	var dg = $(this);
 	var opts = dg.datagrid('options');
 	var pager = dg.datagrid('getPager');
