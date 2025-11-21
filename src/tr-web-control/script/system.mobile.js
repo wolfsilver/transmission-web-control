@@ -2,9 +2,9 @@
 	移动版
 */
 var system = {
-	version: "1.6.0 beta",
+	version: "1.6.2",
 	rootPath: "tr-web-control/",
-	codeupdate: "20180906",
+	codeupdate: "20251121",
 	configHead: "transmission-web-control",
 	config: {
 		autoReload: true,
