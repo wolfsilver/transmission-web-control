@@ -15,7 +15,7 @@ transmission.torrents = {
 	activeTorrentCount: 0,
 	pausedTorrentCount: 0,
 	fields: {
-		base: "id,name,status,hashString,totalSize,percentDone,addedDate,trackerStats,leftUntilDone,rateDownload,rateUpload,recheckProgress" + ",rateDownload,rateUpload,peersGettingFromUs,peersSendingToUs,uploadRatio,uploadedEver,downloadedEver,downloadDir,error,errorString,doneDate,queuePosition,activityDate",
+		base: "id,name,status,hashString,totalSize,percentDone,addedDate,trackerStats,leftUntilDone,rateDownload,rateUpload,recheckProgress" + ",rateDownload,rateUpload,peersGettingFromUs,peersSendingToUs,uploadRatio,uploadedEver,downloadedEver,downloadDir,error,errorString,doneDate,queuePosition,activityDate,sizeWhenDone",
 		status: "id,name,status,totalSize,percentDone,trackerStats,leftUntilDone,rateDownload,rateUpload,recheckProgress" + ",rateDownload,rateUpload,peersGettingFromUs,peersSendingToUs,uploadRatio,uploadedEver,downloadedEver,error,errorString,doneDate,queuePosition,activityDate",
 		config: "id,name,downloadLimit,downloadLimited,peer-limit,seedIdleLimit,seedIdleMode,seedRatioLimit,seedRatioMode,uploadLimit,uploadLimited"
 	},
@@ -285,7 +285,7 @@ transmission.torrents = {
 					tracker.count++;
 					tracker.size += item.totalSize;
 				}
-				
+
 				item.leecherCount += trackerInfo.leecherCount;
 				item.seederCount += trackerInfo.seederCount;
 				if (trackers.indexOf(name)==-1) {
@@ -493,7 +493,7 @@ transmission.torrents = {
 			}, result[index].ids);
 		}
 	},
-	
+
 	// 获取磁力链接
 	getMagnetLink: function(ids, callback){
 		var result = "";
@@ -514,7 +514,7 @@ transmission.torrents = {
 			else
 				result += this.all[id].magnetLink + "\n";
 		}
-		
+
 		if(req_list.length == 0){
 			if(callback) callback(result.trim());
 			return;

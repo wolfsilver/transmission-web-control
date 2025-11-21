@@ -14,7 +14,7 @@
 ### 2018.03.28 v1.5.1
 #### Note: The new update address will be enabled from this release, please download the installation script again. 
 
-https://github.com/ronggang/transmission-web-control/blob/master/release/install-tr-control.sh
+https://github.com/wolfsilver/transmission-web-control/blob/master/release/install-tr-control.sh
 
 * [-] Delete the src.tar.gz files under this repository, and then no longer save the packaging documents under this repository; 
 

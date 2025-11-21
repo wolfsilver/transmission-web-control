@@ -10,10 +10,10 @@
 ----
 
 <p align="center">
-<img src="https://github.com/ronggang/transmission-web-control/raw/master/src/tr-web-control/logo.png"><br/>
-<a href="https://github.com/ronggang/transmission-web-control/releases" title="GitHub Releases"><img src="https://img.shields.io/github/release/ronggang/transmission-web-control.svg"></a>
+<img src="https://github.com/wolfsilver/transmission-web-control/raw/master/src/tr-web-control/logo.png"><br/>
+<a href="https://github.com/wolfsilver/transmission-web-control/releases" title="GitHub Releases"><img src="https://img.shields.io/github/release/wolfsilver/transmission-web-control.svg"></a>
 <img src="https://img.shields.io/badge/transmission-%3E=2.40%20(RPC%20%3E14)-green.svg" title="Support Transmission Version">
-<a href="https://github.com/ronggang/transmission-web-control/LICENSE" title="GitHub license"><img src="https://img.shields.io/github/license/ronggang/transmission-web-control.svg"></a>
+<a href="https://github.com/wolfsilver/transmission-web-control/LICENSE" title="GitHub license"><img src="https://img.shields.io/github/license/wolfsilver/transmission-web-control.svg"></a>
 <a href="https://t.me/transmission_web_control"><img src="https://img.shields.io/badge/Telegram-Chat-blue.svg?logo=telegram" alt="Telegram"/></a>
 </p>
 
@@ -44,7 +44,7 @@ chown sc-transmission:sc-transmission /var/packages/transmission/target/share/tr
 chmod 774 /var/packages/transmission/target/share/transmission/web/* -R
 ```
 
-## 更新日志 [查看](https://github.com/ronggang/transmission-web-control/blob/master/CHANGELOG.md)
+## 更新日志 [查看](https://github.com/wolfsilver/transmission-web-control/blob/master/CHANGELOG.md)
 
 ## 项目日常维护
 * 栽培者

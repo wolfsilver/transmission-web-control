@@ -59,7 +59,7 @@ var system = {
 	dictionary: {
 		folders: null
 	},
-	checkUpdateScript: "https://api.github.com/repos/ronggang/transmission-web-control/releases/latest",
+	checkUpdateScript: "https://api.github.com/repos/wolfsilver/transmission-web-control/releases/latest",
 	contextMenus: {},
 	panel: null,
 	lang: null,
@@ -2244,10 +2244,7 @@ var system = {
 			data = $.extend(data, torrents[index]);
 			data.status = status;
 			data.statusCode = torrents[index].status;
-			// data.completeSize = Math.max(0, torrents[index].totalSize - torrents[index].leftUntilDone);
-			data.completeSize = torrents[index].files
-				? Math.max(0, torrents[index].files?.reduce((acc, el) => acc + el.bytesCompleted, 0) || 0)
-				: Math.max(0, torrents[index].totalSize - torrents[index].leftUntilDone);
+			data.completeSize = torrents[index].sizeWhenDone;
 			data.leecherCount = torrents[index].leecher;
 			data.seederCount = torrents[index].seeder;
 			var labels = this.config.labelMaps[data.hashString];
@@ -2646,8 +2643,7 @@ var system = {
 					return;
 				}
 
-				// torrent.completeSize = (torrent.totalSize - torrent.leftUntilDone);
-				torrent.completeSize = torrent.files?.reduce((acc, el) => acc + el.bytesCompleted, 0) || 0;
+				torrent.completeSize = torrent.sizeWhenDone;
 				if (("files" in torrent) && torrent.files.length > 0) {
 					torrent.moreInfosTag = true;
 				}
@@ -3254,7 +3250,7 @@ var system = {
 						var html = result.body.replace(/\r\n/g,"<br/>");
 
 						var toolbar = $("<div style='text-align:right;'/>").appendTo(content);
-						$('<a href="https://github.com/ronggang/transmission-web-control/releases/latest" target="_blank" class="easyui-linkbutton" data-options="iconCls:\'iconfont tr-icon-github\'"/>').html(result.name + " ("+update+")").appendTo(toolbar).linkbutton();
+						$('<a href="https://github.com/wolfsilver/transmission-web-control/releases/latest" target="_blank" class="easyui-linkbutton" data-options="iconCls:\'iconfont tr-icon-github\'"/>').html(result.name + " ("+update+")").appendTo(toolbar).linkbutton();
 						$("<span/>").html(" ").appendTo(toolbar);
 						$('<a href="https://github.com/ronggang/transmission-web-control/wiki" target="_blank" class="easyui-linkbutton" data-options="iconCls:\'iconfont tr-icon-help\'"/>').html(system.lang["public"]["text-how-to-update"]).appendTo(toolbar).linkbutton();
 						$("<span/>").html(" ").appendTo(toolbar);

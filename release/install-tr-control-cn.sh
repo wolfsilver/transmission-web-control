@@ -3,16 +3,16 @@
 ARG1="$1"
 ROOT_FOLDER=""
 SCRIPT_NAME="$0"
-SCRIPT_VERSION="1.2.5"
+SCRIPT_VERSION="1.2.6"
 VERSION=""
-HTML_FOLDER_NAME="web"
+HTML_FOLDER_NAME="public_html"
 WEB_FOLDER=""
 ORG_INDEX_FILE="index.original.html"
 INDEX_FILE="index.html"
 TMP_FOLDER="/tmp/tr-web-control"
 PACK_NAME="master.tar.gz"
-WEB_HOST="https://github.com/ronggang/transmission-web-control/archive/"
-LAST_RELEASES="https://api.github.com/repos/ronggang/transmission-web-control/releases/latest"
+WEB_HOST="https://github.com/wolfsilver/transmission-web-control/archive/"
+LAST_RELEASES="https://api.github.com/repos/wolfsilver/transmission-web-control/releases/latest"
 DOWNLOAD_URL="$WEB_HOST$PACK_NAME"
 # 安装类型
 # 1 安装至当前 Transmission Web 所在目录
@@ -44,15 +44,15 @@ MSG_DOWNLOAD_FAILED="安装包下载失败，请重试或尝试其他版本。"
 MSG_INSTALL_COMPLETE="Transmission Web Control 安装完成!"
 MSG_PACK_EXTRACTING="正在解压安装包..."
 MSG_PACK_CLEANING_UP="正在清理安装包..."
-MSG_DONE="安装脚本执行完成。如遇到问题请查看：https://github.com/ronggang/transmission-web-control/wiki "
+MSG_DONE="安装脚本执行完成。如遇到问题请查看：https://github.com/wolfsilver/transmission-web-control/wiki "
 MSG_SETTING_PERMISSIONS="正在设置权限，大约需要一分钟 ..."
 MSG_BEGIN="开始"
 MSG_END="结束"
 MSG_WGET_NOT_FIND="系统中没有找到 wget 或 curl，无法进行下载操作，请安装后再试！"
 MSG_MAIN_MENU="
 	欢迎使用 Transmission Web Control 中文安装脚本。
-	官方帮助文档：https://github.com/ronggang/transmission-web-control/wiki 
-	安装脚本版本：$SCRIPT_VERSION 
+	官方帮助文档：https://github.com/ronggang/transmission-web-control/wiki
+	安装脚本版本：$SCRIPT_VERSION
 
 	1. 安装最新的发布版本（release）；
 	2. 安装指定版本，可用于降级；
@@ -126,9 +126,9 @@ initValues() {
 			PACK_NAME="v$VERSION.tar.gz"
 		fi
 		showLog "$MSG_SPECIFIED_VERSION $VERSION"
-		
+
 		DOWNLOAD_URL="$WEB_HOST$PACK_NAME"
-	fi	
+	fi
 
 	if [ $SKIP_SEARCH = 0 ]; then
 		# 查找目录
@@ -151,11 +151,11 @@ main() {
 findWebFolder() {
 	# 找出web ui 目录
 	showLog "$MSG_SEARCHING_TR_FOLDER"
-		
+
 	# 判断 TRANSMISSION_WEB_HOME 环境变量是否被定义，如果是，直接用这个变量的值
 	if [ $TRANSMISSION_WEB_HOME ]; then
 		showLog "$MSG_USE_WEB_HOME"
-		# 判断目录是否存在，如果不存在则创建 https://github.com/ronggang/transmission-web-control/issues/167
+		# 判断目录是否存在，如果不存在则创建 https://github.com/wolfsilver/transmission-web-control/issues/167
 		if [ ! -d "$TRANSMISSION_WEB_HOME" ]; then
          mkdir -p "$TRANSMISSION_WEB_HOME"
       fi
@@ -201,10 +201,10 @@ install() {
 		download
 		# 创建web文件夹，从 20171014 之后，打包文件不包含web目录，直接打包为src下所有文件
 		mkdir $HTML_FOLDER_NAME
-		
+
 		# 解压缩包
 		unpack "$HTML_FOLDER_NAME"
-		
+
 		showLog "$MSG_PACK_COPYING"
 		# 复制文件到
 		cp -r $HTML_FOLDER_NAME "$ROOT_FOLDER"
@@ -260,7 +260,7 @@ download() {
 	if [ $? -eq 0 ]; then
 		showLog "$MSG_DOWNLOAD_COMPLETE"
 		return 0
-	else 
+	else
 		showLog "$MSG_DOWNLOAD_FAILED"
 		end
 		exit 1
@@ -282,7 +282,7 @@ showLog() {
 		*)
 			echo "<< $TIME >> $1" ;;
 	esac
-	
+
 }
 
 # 解压安装包
@@ -359,7 +359,7 @@ showMainMenu() {
 			read VERSION
 			main
 			;;
-		
+
 		3)
 			revertOriginalUI
 			;;
@@ -384,7 +384,7 @@ showMainMenu() {
 			sleep 2
 			showMainMenu
 			;;
-		
+
 		# 下载最新的代码
 		9)
 			echo -n "$MSG_MASTER_INSTALL_CONFIRM"
@@ -413,7 +413,7 @@ getTransmissionPath() {
 		if [ -f "/etc/fedora-release" ] || [ -f "/etc/debian_version" ] || [ -f "/etc/openwrt_release" ]; then
 			ROOT_FOLDER="/usr/share/transmission"
 		fi
-		
+
 		if [ -f "/bin/freebsd-version" ]; then
 			ROOT_FOLDER="/usr/local/share/transmission"
 		fi
@@ -519,11 +519,11 @@ downloadInstallScript() {
 		rm "$SCRIPT_NAME"
 	fi
 	showLog "$MSG_DOWNLOADING_INSTALL_SCRIPT"
-	wget "https://github.com/ronggang/transmission-web-control/raw/master/release/$SCRIPT_NAME" --no-check-certificate
+	wget "https://github.com/wolfsilver/transmission-web-control/raw/master/release/$SCRIPT_NAME" --no-check-certificate
 	# 判断是否下载成功
 	if [ $? -eq 0 ]; then
 		showLog "$MSG_INSTALL_SCRIPT_DOWNLOAD_COMPLETE"
-	else 
+	else
 		showLog "$MSG_INSTALL_SCRIPT_DOWNLOAD_FAILED"
 		sleep 2
 		showMainMenu
