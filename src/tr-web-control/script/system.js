@@ -1,6 +1,6 @@
 // Current system global object
 var system = {
-	version: "1.6.3",
+	version: "1.6.4",
 	rootPath: "tr-web-control/",
 	codeupdate: "20251121",
 	configHead: "transmission-web-control",
