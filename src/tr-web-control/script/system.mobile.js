@@ -427,7 +427,7 @@ var system = {
 				percentDoneNumber: percentDone,
 				status: status,
 				addedDate: formatLongTime(torrents[index].addedDate),
-				completeSize: (torrents[index].totalSize - torrents[index].leftUntilDone),
+				completeSize: (torrents[index].sizeWhenDone),
 				rateDownload: torrents[index].rateDownload,
 				rateUpload: torrents[index].rateUpload,
 				leecherCount: torrents[index].leecher,
